@@ -1,4 +1,5 @@
 const path = require("node:path");
+const nodeExternals = require("webpack-node-externals");
 const process = require("node:process");
 
 const dotenv = require("dotenv");
@@ -12,6 +13,7 @@ module.exports = {
   name: "express-server",
   entry: "./src/index.ts",
   target: "node",
+  externals: [nodeExternals()],
   mode: NODE_ENV,
   output: {
     path: path.resolve(__dirname, "dist"),
