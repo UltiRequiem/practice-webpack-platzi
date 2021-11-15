@@ -4,17 +4,29 @@ import Home from '../containers/Home';
 import Checkout from '../containers/Checkout';
 import Layout from '../components/Layout';
 import NotFound from '../containers/NotFound';
+import useInitialState from '../hooks/useInitialState';
 
-const App = () => (
-  <BrowserRouter>
-    <Layout>
-      <Routes>
-        <Route path="/" element={Home} />
-        <Route path="/checkout" element={Checkout} />
-        <Route element={NotFound} />
-      </Routes>
-    </Layout>
-  </BrowserRouter>
-);
+export default function App() {
+  const initialState = useInitialState();
+  const isEmpty = Object.keys(initialState).length === 0;
 
-export default App;
+  console.log(isEmpty);
+
+  return (
+    <>
+      {!isEmpty ? (
+        <BrowserRouter>
+          <Layout>
+            <Routes>
+              <Route path="/" element={Home} />
+              <Route path="/checkout" element={Checkout} />
+              <Route element={NotFound} />
+            </Routes>
+          </Layout>
+        </BrowserRouter>
+      ) : (
+        <h1>Loading...</h1>
+      )}
+    </>
+  );
+}
