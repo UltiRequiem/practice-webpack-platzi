@@ -1,11 +1,11 @@
-import * as express from "express";
+import { default as express } from "express";
+import DataService from "./data";
+import {PORT} from "./config";
 
-const app = express.default();
+const app = express();
 
-import { PORT } from "./config";
-
-app.get("/", (req, res) => {
-  res.send("Hello Typescript");
+app.get("/api", (_req, res) => {
+  res.json(DataService.products);
 });
 
 app.listen(PORT, () => {

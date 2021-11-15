@@ -2,11 +2,9 @@ const path = require("node:path");
 const nodeExternals = require("webpack-node-externals");
 const process = require("node:process");
 
-const dotenv = require("dotenv");
+require("dotenv").config();
 
-dotenv.config();
-
-const { NODE_ENV, PORT } = process.env;
+const { NODE_ENV } = process.env;
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -25,7 +23,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
