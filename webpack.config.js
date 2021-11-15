@@ -1,16 +1,24 @@
 const path = require("node:path");
+const process = require("node:process");
+
+const dotenv = require("dotenv");
+
+dotenv.config();
+
+const { NODE_ENV, PORT } = process.env;
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
   name: "express-server",
-  entry: "./src/index.js",
+  entry: "./src/index.ts",
   target: "node",
+  mode: NODE_ENV,
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.cjs",
+    filename: "index.js",
   },
   resolve: {
-    extensions: [".js"],
+    extensions: [".js", ".ts"],
   },
   module: {
     rules: [
@@ -19,10 +27,11 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-          },
         },
+      },
+      {
+        test: /\.ts$/,
+        use: "ts-loader",
       },
     ],
   },
